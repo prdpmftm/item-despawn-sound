@@ -102,6 +102,12 @@ src/main/java/com/mtwork/itemdespawn/
 - 打开聊天框或 ESC 菜单时字幕在底层渲染，可能被界面遮住
 - 不支持 wav / flac / m4a
 
+## 许可与第三方
+
+- 本项目代码：MIT，见根目录 `LICENSE`
+- 分发的 jar 内含：`LICENSE`、`THIRD-PARTY-NOTICES.md`、`LICENSES/LGPL-2.1.txt`
+- mp3 解码使用 JLayer 1.0.1（LGPL-2.1），类文件嵌入 jar，许可文本一并附带
+
 ## License
 
 MIT © 2026 Mgmt_Dept

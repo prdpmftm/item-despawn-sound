@@ -52,6 +52,12 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 jar {
+	// 分发 jar 时按 MIT 要求附带许可与第三方声明
+	from('LICENSE')
+	from('THIRD-PARTY-NOTICES.md')
+	from('LICENSES') {
+		into 'LICENSES'
+	}
 	from { configurations.embed.collect { it.isDirectory() ? it : zipTree(it) } } {
 		include 'javazoom/jl/decoder/**'
 	}
