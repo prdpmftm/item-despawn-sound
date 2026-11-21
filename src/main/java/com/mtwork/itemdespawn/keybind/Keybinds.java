@@ -2,13 +2,11 @@ package com.mtwork.itemdespawn.keybind;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mtwork.itemdespawn.DespawnConfig;
-import com.mtwork.itemdespawn.ItemDespawnClient;
 import com.mtwork.itemdespawn.gui.DespawnScreen;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 /**
@@ -16,8 +14,7 @@ import org.lwjgl.glfw.GLFW;
  * 在「选项 → 控制 → 按键绑定」的「物品消失提示」分类里改键，默认不绑定。
  */
 public final class Keybinds {
-	private static final KeyMapping.Category CATEGORY =
-			KeyMapping.Category.register(Identifier.fromNamespaceAndPath(ItemDespawnClient.MOD_ID, "main"));
+	private static final String CATEGORY = "key.category.itemdespawn";
 
 	private static KeyMapping openSettings;
 	private static KeyMapping toggleMod;

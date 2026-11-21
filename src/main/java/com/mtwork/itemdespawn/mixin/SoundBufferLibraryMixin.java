@@ -4,7 +4,7 @@ import com.mojang.blaze3d.audio.SoundBuffer;
 import com.mtwork.itemdespawn.audio.TrackLibrary;
 import net.minecraft.client.sounds.AudioStream;
 import net.minecraft.client.sounds.SoundBufferLibrary;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,7 +21,7 @@ import java.util.concurrent.CompletionException;
 @Mixin(SoundBufferLibrary.class)
 public abstract class SoundBufferLibraryMixin {
 	@Inject(method = "getStream", at = @At("HEAD"), cancellable = true)
-	private void itemdespawn$getStream(Identifier id, boolean looping,
+	private void itemdespawn$getStream(ResourceLocation id, boolean looping,
 			CallbackInfoReturnable<CompletableFuture<AudioStream>> cir) {
 		Path path = TrackLibrary.pathFor(id);
 		if (path == null) {
@@ -37,7 +37,7 @@ public abstract class SoundBufferLibraryMixin {
 	}
 
 	@Inject(method = "getCompleteBuffer", at = @At("HEAD"), cancellable = true)
-	private void itemdespawn$getCompleteBuffer(Identifier id,
+	private void itemdespawn$getCompleteBuffer(ResourceLocation id,
 			CallbackInfoReturnable<CompletableFuture<SoundBuffer>> cir) {
 		Path path = TrackLibrary.pathFor(id);
 		if (path == null) {

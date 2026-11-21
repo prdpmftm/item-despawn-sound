@@ -4,14 +4,14 @@ import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.WeighedSoundEvents;
 import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 
 /**
  * 播放磁盘上自定义 ogg 的 SoundInstance。
  */
 public class LocalTrackSoundInstance implements SoundInstance {
-	private final Identifier id;
+	private final ResourceLocation id;
 	private final Sound sound;
 	private final float volume;
 	private final float pitch;
@@ -19,7 +19,7 @@ public class LocalTrackSoundInstance implements SoundInstance {
 	private final double y;
 	private final double z;
 
-	public LocalTrackSoundInstance(Identifier id, Sound sound, float volume, float pitch, double x, double y, double z) {
+	public LocalTrackSoundInstance(ResourceLocation id, Sound sound, float volume, float pitch, double x, double y, double z) {
 		this.id = id;
 		this.sound = sound;
 		this.volume = volume;
@@ -30,7 +30,7 @@ public class LocalTrackSoundInstance implements SoundInstance {
 	}
 
 	@Override
-	public Identifier getIdentifier() {
+	public ResourceLocation getLocation() {
 		return this.id;
 	}
 
