@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "itemdespawn",
+	"version": "${version}",
+	"name": "Item Despawn Sound & Subtitle",
+	"description": "物品到期消失时播放自定义音效，或者在屏幕上显示字幕——没有外放设备也能看到提示。Mod Menu 里可切换声音/字幕/两者、选音轨、导入音频。",
+	"authors": [
+		"Mgmt_Dept"
+	],
+	"contact": {},
+	"license": "MIT",
+	"icon": "assets/itemdespawn/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"com.mtwork.itemdespawn.ItemDespawnClient"
+		],
+		"modmenu": [
+			"com.mtwork.itemdespawn.integration.ModMenuIntegration"
+		]
+	},
+	"mixins": [
+		{
+			"config": "itemdespawn.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"fabric-api": "*",
+		"minecraft": "~1.21.11",
+		"java": ">=21"
+	},
+	"suggests": {
+		"modmenu": ">=17.0.0"
+	}
+}

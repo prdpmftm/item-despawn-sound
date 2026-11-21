@@ -1,0 +1,17 @@
+# Gradle
+.gradle/
+build/
+out/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# 运行目录
+run/
+logs/
+
+# 杂项
+*.log
+.DS_Store

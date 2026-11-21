@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"package": "com.mtwork.itemdespawn.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"ClientLevelMixin",
+		"GuiMixin",
+		"SoundBufferLibraryMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

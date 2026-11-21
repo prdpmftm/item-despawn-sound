@@ -1,0 +1,64 @@
+plugins {
+	id 'net.fabricmc.fabric-loom-remap' version "${loom_version}"
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	// 构建时如果 fabric 仓库连不上，可以临时加一个代理/镜像仓库放在最前面
+	maven { url = 'https://maven.terraformersmc.com/releases/' }
+	maven { url = 'https://maven.aliyun.com/repository/public' }
+}
+
+configurations {
+	// 需要打进 jar 的第三方库
+	embed
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings loom.officialMojangMappings()
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+	// 快捷键要用的 KeyBindingHelper / ClientTickEvents 在这里
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+	// Mod Menu 只用于编译期实现配置界面入口，运行时可选
+	modCompileOnly("com.terraformersmc:modmenu:${project.modmenu_version}") {
+		transitive = false
+	}
+
+	// mp3 解码（纯 Java 的 JLayer），直接并进 mod jar
+	implementation "javazoom:jlayer:1.0.1"
+	embed "javazoom:jlayer:1.0.1"
+}
+
+processResources {
+	def props = ['version': project.version]
+	inputs.properties props
+	filesMatching('fabric.mod.json') {
+		expand props
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 21
+	it.options.encoding = 'UTF-8'
+}
+
+jar {
+	from { configurations.embed.collect { it.isDirectory() ? it : zipTree(it) } } {
+		include 'javazoom/jl/decoder/**'
+	}
+}
+
+java {
+	withSourcesJar()
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
