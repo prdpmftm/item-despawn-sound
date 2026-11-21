@@ -68,25 +68,6 @@ A Fabric client mod that plays a custom sound and/or shows an on-screen subtitle
 - `lenient`：宽松模式，任何掉落物消失都提示
 - `cooldownMs`：两次声音之间的最小间隔（字幕不受此限制，会合并）
 
-## 构建
-
-各版本工具链不同：
-
-| 分支 | Gradle | Loom | 构建 JVM | 产物目标 |
-|---|---|---|---|---|
-| `main`（1.21.11） | 9.8.2 | 1.19-SNAPSHOT | JDK 25 | Java 21 |
-| `mc1.21.1` | 9.8.2 | 1.19-SNAPSHOT | JDK 25 | Java 21 |
-| `mc1.20.1` | 8.8 | 1.7-SNAPSHOT | JDK 21 | Java 17 |
-
-```bash
-./gradlew build
-```
-
-产物在 `build/libs/item-despawn-sound-<version>.jar`。
-
-> 1.20.1 分支的 Gradle wrapper 仍指向 9.8.2，需要手动用 Gradle 8.8 构建（`gradle-8.8/bin/gradle build`）或把 wrapper 降级。
-> 如果 Fabric 仓库连不上，可以临时把镜像仓库加到 `build.gradle` 的 `repositories` 最前面。
-
 ## 项目结构
 
 ```
