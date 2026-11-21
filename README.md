@@ -2,7 +2,7 @@
 
 物品到期消失时播放自定义音效，或者在屏幕上显示字幕——适合没有外放设备、安静环境或听障玩家。
 
-A Fabric client mod for Minecraft 1.21.11: plays a custom sound and/or shows an on-screen subtitle when an item entity despawns after its lifetime (6000 ticks / 5 minutes).
+A Fabric client mod that plays a custom sound and/or shows an on-screen subtitle when an item entity despawns after its lifetime (6000 ticks / 5 minutes). Supports Minecraft **1.20.1 / 1.21.1 / 1.21.11**, one jar per version.
 
 ## 功能
 
@@ -15,23 +15,32 @@ A Fabric client mod for Minecraft 1.21.11: plays a custom sound and/or shows an 
 - 两个可自定义快捷键：打开设置、开关模组
 - 配置保存在 `config/itemdespawn/config.json`
 
+## 版本支持
+
+| Minecraft | 代码分支 | Java | Fabric API | Mod Menu（可选） |
+|---|---|---|---|---|
+| 1.20.1 | `mc1.20.1` | 17+ | 0.92.x+1.20.1 | 7.2.2 |
+| 1.21.1 | `mc1.21.1` | 21+ | 0.116.x+1.21.1 | 11.0.5 |
+| 1.21.11 | `main` | 21+ | 0.141.x+1.21.11 | 17.0.1 |
+
+每个版本单独构建，Release 里按 `+mc<版本>` 区分 jar。
+
 ## 环境要求
 
 | 项目 | 版本 |
 |---|---|
-| Minecraft | 1.21.11 |
+| Minecraft | 1.20.1 / 1.21.1 / 1.21.11 |
 | Fabric Loader | ≥ 0.16.0 |
 | Fabric API | 必需 |
-| Java | 21+ |
-| Mod Menu | 17.0.1（可选，图形界面） |
-| Placeholder API | Mod Menu 17 的前置 |
+| Java | 1.20.1 用 17+；1.21.x 用 21+ |
+| Mod Menu | 可选，版本见上表（1.21.11 还需 Placeholder API） |
 
 ## 安装
 
-1. 安装 Fabric Loader 0.20.x 和 Minecraft 1.21.11
+1. 按你的 MC 版本装 Fabric Loader 和对应版本的 Minecraft
 2. 把 [Fabric API](https://modrinth.com/mod/fabric-api) 放进 `mods/`
-3. 把本模组的 jar 放进 `mods/`
-4. 可选：装 Mod Menu 17.0.1 + Placeholder API，就能在 Mod Menu 里打开配置
+3. 把对应版本的 jar（`+mc1.20.1` / `+mc1.21.1` / `+mc1.21.11`）放进 `mods/`
+4. 可选：装对应版本的 Mod Menu，就能在 Mod Menu 里打开配置
 5. 进游戏后在 `选项 → 控制 → 按键绑定 → 物品消失提示` 里给快捷键设键（默认不绑定）
 
 ## 使用
@@ -71,7 +80,13 @@ A Fabric client mod for Minecraft 1.21.11: plays a custom sound and/or shows an 
 
 ## 构建
 
-需要 **JDK 25** 作为构建 JVM（Loom 1.19.4 的要求），产物目标是 Java 21。
+各版本工具链不同：
+
+| 分支 | Gradle | Loom | 构建 JVM | 产物目标 |
+|---|---|---|---|---|
+| `main`（1.21.11） | 9.8.2 | 1.19-SNAPSHOT | JDK 25 | Java 21 |
+| `mc1.21.1` | 9.8.2 | 1.19-SNAPSHOT | JDK 25 | Java 21 |
+| `mc1.20.1` | 8.8 | 1.7-SNAPSHOT | JDK 21 | Java 17 |
 
 ```bash
 ./gradlew build
@@ -79,6 +94,7 @@ A Fabric client mod for Minecraft 1.21.11: plays a custom sound and/or shows an 
 
 产物在 `build/libs/item-despawn-sound-<version>.jar`。
 
+> 1.20.1 分支的 Gradle wrapper 仍指向 9.8.2，需要手动用 Gradle 8.8 构建（`gradle-8.8/bin/gradle build`）或把 wrapper 降级。
 > 如果 Fabric 仓库连不上，可以临时把镜像仓库加到 `build.gradle` 的 `repositories` 最前面。
 
 ## 项目结构
