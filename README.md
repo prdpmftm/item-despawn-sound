@@ -15,16 +15,6 @@ A Fabric client mod that plays a custom sound and/or shows an on-screen subtitle
 - 两个可自定义快捷键：打开设置、开关模组
 - 配置保存在 `config/itemdespawn/config.json`
 
-## 版本支持
-
-| Minecraft | 代码分支 | Java | Fabric API | Mod Menu（可选） |
-|---|---|---|---|---|
-| 1.20.1 | `mc1.20.1` | 17+ | 0.92.x+1.20.1 | 7.2.2 |
-| 1.21.1 | `mc1.21.1` | 21+ | 0.116.x+1.21.1 | 11.0.5 |
-| 1.21.11 | `main` | 21+ | 0.141.x+1.21.11 | 17.0.1 |
-
-每个版本单独构建，Release 里按 `+mc<版本>` 区分 jar。
-
 ## 环境要求
 
 | 项目 | 版本 |
