@@ -10,7 +10,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Util;
+import net.minecraft.Util;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -71,8 +71,9 @@ public class DespawnScreen extends Screen {
 		List<String> modes = List.of("sound", "subtitle", "both");
 		List<String> modeLabels = List.of("只声音", "只字幕", "声音+字幕");
 		this.addRenderableWidget(CycleButton
-				.builder((String value) -> Component.literal(modeLabels.get(modes.indexOf(value))), cfg.mode)
+				.builder((String value) -> Component.literal(modeLabels.get(modes.indexOf(value))))
 				.withValues(modes)
+				.withInitialValue(cfg.mode)
 				.create(x, y, W, 20, Component.literal("提示方式"),
 						(button, value) -> {
 							cfg.mode = value;
@@ -86,8 +87,9 @@ public class DespawnScreen extends Screen {
 			options.add("");
 			options.addAll(TrackLibrary.names());
 			this.addRenderableWidget(CycleButton
-					.builder((String value) -> Component.literal(value.isEmpty() ? "原版音效" : value), cfg.track)
+					.builder((String value) -> Component.literal(value.isEmpty() ? "原版音效" : value))
 					.withValues(options)
+					.withInitialValue(cfg.track)
 					.displayOnlyValue()
 					.create(x, y, W, 20, Component.literal("音轨"),
 							(button, value) -> {
@@ -127,8 +129,9 @@ public class DespawnScreen extends Screen {
 				}
 			}
 			this.addRenderableWidget(CycleButton
-					.builder((String value) -> Component.literal(value), presetLabels.get(preset))
+					.builder((String value) -> Component.literal(value))
 					.withValues(presetLabels)
+					.withInitialValue(presetLabels.get(preset))
 					.create(x, y, W, 20, Component.literal("字幕停留"),
 							(button, value) -> {
 								cfg.subtitleMs = presets[presetLabels.indexOf(value)];
@@ -166,7 +169,7 @@ public class DespawnScreen extends Screen {
 
 	private void openFolder() {
 		try {
-			Util.getPlatform().openPath(TrackLibrary.folder());
+			Util.getPlatform().openFile(TrackLibrary.folder().toFile());
 		} catch (Throwable t) {
 			this.setHint("无法打开文件夹：" + TrackLibrary.folder());
 		}

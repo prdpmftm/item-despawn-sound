@@ -59,7 +59,7 @@ public final class DespawnSounds {
 			if (name != null && !name.isEmpty()) {
 				ItemDespawnClient.LOGGER.debug("音轨 {} 不存在，回退到原版音效", name);
 			}
-			minecraft.level.playLocalSound(x, y, z, SoundEvents.ITEM_BREAK.value(), SoundSource.PLAYERS,
+			minecraft.level.playLocalSound(x, y, z, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS,
 					(float) cfg.volume, (float) cfg.pitch, false);
 		}
 	}
@@ -82,7 +82,7 @@ public final class DespawnSounds {
 			}
 		} else if (minecraft.level != null) {
 			minecraft.level.playLocalSound(minecraft.player.getX(), minecraft.player.getY(), minecraft.player.getZ(),
-					SoundEvents.ITEM_BREAK.value(), SoundSource.PLAYERS,
+					SoundEvents.ITEM_BREAK, SoundSource.PLAYERS,
 					(float) cfg.volume, (float) cfg.pitch, false);
 		}
 	}

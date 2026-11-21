@@ -4,8 +4,8 @@ import com.mtwork.itemdespawn.ItemDespawnClient;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.client.sounds.AudioStream;
-import net.minecraft.client.sounds.JOrbisAudioStream;
-import net.minecraft.resources.Identifier;
+import com.mojang.blaze3d.audio.OggAudioStream;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.ConstantFloat;
 
 import java.io.ByteArrayOutputStream;
@@ -27,7 +27,7 @@ public final class TrackLibrary {
 	private static final Path SOUNDS_DIR = FabricLoader.getInstance().getConfigDir().resolve("itemdespawn/sounds");
 
 	private static final Map<String, Path> FILES = new LinkedHashMap<>();
-	private static final Map<Identifier, Path> BY_ID = new LinkedHashMap<>();
+	private static final Map<ResourceLocation, Path> BY_ID = new LinkedHashMap<>();
 	private static final Map<String, Sound> SOUNDS = new LinkedHashMap<>();
 
 	private TrackLibrary() {
@@ -49,7 +49,7 @@ public final class TrackLibrary {
 		if (name.endsWith(".mp3")) {
 			return new Mp3AudioStream(file.toFile());
 		}
-		return new JOrbisAudioStream(Files.newInputStream(file));
+		return new OggAudioStream(Files.newInputStream(file));
 	}
 
 	/** 把整个音频流读成一块 PCM。 */
@@ -89,16 +89,10 @@ public final class TrackLibrary {
 
 	private static void register(Path file) {
 		String name = file.getFileName().toString();
-		Identifier id = Identifier.fromNamespaceAndPath(ItemDespawnClient.MOD_ID, "custom/" + slug(name));
-		Sound sound = new Sound(id, ConstantFloat.of(1.0F), ConstantFloat.of(1.0F), 1,
-				Sound.Type.FILE, true, false, 16);
+		ResourceLocation id = new ResourceLocation(ItemDespawnClient.MOD_ID, "custom/" + slug(name));
+		Sound sound = new Sound(id.toString(), ConstantFloat.of(1.0F), ConstantFloat.of(1.0F), 1, Sound.Type.FILE, true, false, 16);
 		FILES.put(name, file);
 		BY_ID.put(id, file);
-		// 播放时游戏用的是 getPath()（sounds/...ogg），两种都登记
-		Identifier path = sound.getPath();
-		if (path != null) {
-			BY_ID.put(path, file);
-		}
 		SOUNDS.put(name, sound);
 	}
 
@@ -127,8 +121,8 @@ public final class TrackLibrary {
 		return FILES.get(name);
 	}
 
-	/** 供音效流混入使用：Identifier -> 本地 ogg 文件。 */
-	public static Path pathFor(Identifier id) {
+	/** 供音效流混入使用：ResourceLocation -> 本地 ogg 文件。 */
+	public static Path pathFor(ResourceLocation id) {
 		return BY_ID.get(id);
 	}
 
